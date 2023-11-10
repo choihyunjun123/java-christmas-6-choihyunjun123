@@ -18,8 +18,13 @@ public class Application {
         }
     }
 
+    public static void validateMenu() {
+        inputView.readMenu();
+    }
+
     public static void main(String[] args) {
         outputView.startMessage();
         validateDate();
+        validateMenu();
     }
 }
