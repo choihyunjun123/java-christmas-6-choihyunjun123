@@ -9,6 +9,7 @@ public class Validate {
     private static final int MENU_NAME_POSITION = 0;
     private static final int MENU_NUMBER_POSITION = 1;
     private static final int MENU_NUMBER_LIST_SIZE = 2;
+    private static final int INITIAL_VALUE_OF_ORDER_NUM = 0;
 
     private static final Order order = new Order();
 
@@ -86,11 +87,7 @@ public class Validate {
 
     //존재 메뉴 검증
     public void menuExist(HashMap<String, Integer> menuAndNumber) {
-        int appetizer = menuCheck(menuAndNumber, Menu.Appetizer.values());
-        int main = menuCheck(menuAndNumber, Menu.Main.values());
-        int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
-        int drink = menuCheck(menuAndNumber, Menu.Drink.values());
-        int orderNameNum = appetizer + main + dessert + drink;
+        int orderNameNum = menuOrderNum(menuAndNumber);
         if (menuAndNumber.size() != orderNameNum) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
@@ -98,23 +95,30 @@ public class Validate {
 
     //음료만 주문 검증
     public void drinkOnly(HashMap<String, Integer> menuAndNumber) {
-        int appetizer = menuCheck(menuAndNumber, Menu.Appetizer.values());
-        int main = menuCheck(menuAndNumber, Menu.Main.values());
-        int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
         int drink = menuCheck(menuAndNumber, Menu.Drink.values());
-        if (appetizer == 0 && main == 0 && dessert == 0 && drink != 0) {
+        int orderNameNum = menuOrderNum(menuAndNumber);
+        if (orderNameNum == drink) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
     // 메뉴 존재 검증
     public int menuCheck(HashMap<String, Integer> menuAndNumber, Enum<?>[] menuValues) {
-        int orderNum = 0;
+        int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
         for (Enum<?> menu : menuValues) {
             if (menuAndNumber.containsKey(String.valueOf(menu))) {
                 orderNum++;
             }
         }
         return orderNum;
+    }
+
+    //주문 메뉴 개수 구하기
+    public int menuOrderNum(HashMap<String, Integer> menuAndNumber) {
+        int appetizer = menuCheck(menuAndNumber, Menu.Appetizer.values());
+        int main = menuCheck(menuAndNumber, Menu.Main.values());
+        int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
+        int drink = menuCheck(menuAndNumber, Menu.Drink.values());
+        return appetizer + main + dessert + drink;
     }
 }
