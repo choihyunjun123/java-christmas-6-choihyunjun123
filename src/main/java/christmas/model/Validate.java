@@ -36,7 +36,7 @@ public class Validate {
     }
 
     //주문 메뉴 검증
-    public void validateOrder(String orderMenu) {
+    public HashMap<String, Integer> validateOrder(String orderMenu) {
         List<List> splitOrder = order.splitOrder(orderMenu);
         form(splitOrder);
         orderNumberWord(splitOrder);
@@ -46,6 +46,7 @@ public class Validate {
         menuExist(menuAndNumber);
         drinkOnly(menuAndNumber);
         totalOrderNum(menuAndNumber);
+        return menuAndNumber;
     }
 
     //주문 입력 형식 검증
