@@ -10,6 +10,7 @@ public class Validate {
     private static final int MENU_NUMBER_POSITION = 1;
     private static final int MENU_NUMBER_LIST_SIZE = 2;
     private static final int INITIAL_VALUE_OF_ORDER_NUM = 0;
+    private static final int MAXIMUM_VALUE_OF_ORDER_NUM = 0;
 
     private static final Order order = new Order();
 
@@ -125,11 +126,11 @@ public class Validate {
 
     //전체 주문 개수 20개 이상 검증
     public void totalOrderNum(HashMap<String, Integer> menuAndNumber) {
-        int totalNum = 0;
+        int totalNum = INITIAL_VALUE_OF_ORDER_NUM;
         for (int total : menuAndNumber.values()) {
             totalNum += total;
         }
-        if (totalNum > 20) {
+        if (totalNum > MAXIMUM_VALUE_OF_ORDER_NUM) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
         System.out.println(totalNum);
