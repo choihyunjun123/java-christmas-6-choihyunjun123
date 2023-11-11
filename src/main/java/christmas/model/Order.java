@@ -14,8 +14,8 @@ public class Order {
         for (String s : orders) {
             splitOrders.add(Arrays.asList(s.split("-")));
         }
-        for (List ss : splitOrders) {
-            menuAndNumber.put(ss.get(0),ss.get(1));
+        for (List l : splitOrders) {
+            menuAndNumber.put(l.get(0),l.get(1));
         }
         return menuAndNumber;
     }
