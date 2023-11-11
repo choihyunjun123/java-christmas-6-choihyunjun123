@@ -10,11 +10,13 @@ public class Application {
     private static final OutputView outputView = new OutputView();
     private static final Validate validate = new Validate();
 
+    private static int visitDay;
+
     public static void validateDate() {
         try {
-            validate.validateDate(inputView.readDate());
+            visitDay = validate.validateDate(inputView.readDate());
         } catch (IllegalArgumentException e) {
-            outputView.errorMessage(e.getMessage());
+            outputView.error(e.getMessage());
             validateDate();
         }
     }
@@ -23,14 +25,15 @@ public class Application {
         try {
             validate.validateOrder(inputView.readMenu());
         } catch (IllegalArgumentException e) {
-            outputView.errorMessage(e.getMessage());
+            outputView.error(e.getMessage());
             validateMenu();
         }
     }
 
     public static void main(String[] args) {
-        outputView.startMessage();
+        outputView.start();
         validateDate();
         validateMenu();
+        outputView.preview(visitDay);
     }
 }
