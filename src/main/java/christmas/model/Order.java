@@ -21,10 +21,11 @@ public class Order {
         return splitOrders;
     }
 
-    public HashMap<Object,Object> putOrder(List<List> order) {
-        HashMap<Object,Object> menuAndNumber = new HashMap<>();
+    public HashMap<String, Integer> putOrder(List<List> order) {
+        HashMap<String, Integer> menuAndNumber = new HashMap<>();
         for (List l : order) {
-            menuAndNumber.put(l.get(MENU_NAME_POSITION),l.get(MENU_NUMBER_POSITION));
+            menuAndNumber.put(l.get(MENU_NAME_POSITION).toString(),
+                    Integer.parseInt(l.get(MENU_NUMBER_POSITION).toString()));
         }
         return menuAndNumber;
     }

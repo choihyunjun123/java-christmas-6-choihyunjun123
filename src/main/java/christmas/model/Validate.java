@@ -1,7 +1,6 @@
 package christmas.model;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Validate {
     private static final String INPUT_CONTENT_REGEX = "^[0-9]+$";
@@ -33,8 +32,8 @@ public class Validate {
         List<List> splitOrder = order.splitOrder(orderMenu);
         form(splitOrder);
         orderNumber(splitOrder);
-//        HashMap<Object, Object> menuAndNumber = order.putOrder(order.splitOrder(orderMenu));
-//        System.out.println(menuAndNumber);
+//        HashMap<String, Integer> menuAndNumber = order.putOrder(splitOrder);
+        duplication(splitOrder);
     }
 
     public void form(List<List> splitOrder) {
@@ -50,6 +49,18 @@ public class Validate {
             if (!l.get(MENU_NUMBER_POSITION).toString().matches(INPUT_CONTENT_REGEX)) {
                 throw new IllegalArgumentException("[ERROR] 주문 숫자 오류 입니다.");
             }
+        }
+    }
+
+    public void duplication(List<List> splitOrder) {
+        List<Object> allMenu = new ArrayList<>();
+        Set<Object> organizedMenu = new HashSet<>();
+        for (List l : splitOrder) {
+            allMenu.add(l.get(0));
+            organizedMenu.add(l.get(0));
+        }
+        if (allMenu.size() != organizedMenu.size()) {
+            throw new IllegalArgumentException("[ERROR] 메뉴가 중복입니다.");
         }
     }
 }
