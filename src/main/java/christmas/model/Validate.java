@@ -43,6 +43,7 @@ public class Validate {
         HashMap<String, Integer> menuAndNumber = order.putOrder(splitOrder);
         menuExist(menuAndNumber);
         drinkOnly(menuAndNumber);
+        totalOrderNum(menuAndNumber);
     }
 
     //주문 입력 형식 검증
@@ -120,5 +121,17 @@ public class Validate {
         int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
         int drink = menuCheck(menuAndNumber, Menu.Drink.values());
         return appetizer + main + dessert + drink;
+    }
+
+    //전체 주문 개수 20개 이상 검증
+    public void totalOrderNum(HashMap<String, Integer> menuAndNumber) {
+        int totalNum = 0;
+        for (int total : menuAndNumber.values()) {
+            totalNum += total;
+        }
+        if (totalNum > 20) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+        System.out.println(totalNum);
     }
 }
