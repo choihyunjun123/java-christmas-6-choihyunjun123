@@ -7,6 +7,8 @@ public class Validate {
     private static final String INPUT_CONTENT_REGEX = "^[0-9]+$";
     private static final int MONTH_START_DATE = 1;
     private static final int MONTH_END_DATE = 31;
+    private static final int MENU_NUMBER_POSITION = 1;
+    private static final int MENU_NUMBER_LIST_SIZE = 2;
 
     private static final Order order = new Order();
 
@@ -37,7 +39,7 @@ public class Validate {
 
     public void form(List<List> splitOrder) {
         for (List l : splitOrder) {
-            if (l.size() != 2) {
+            if (l.size() != MENU_NUMBER_LIST_SIZE) {
                 throw new IllegalArgumentException("[ERROR] 입력 형식 오류 입니다.");
             }
         }
@@ -45,7 +47,7 @@ public class Validate {
 
     public void orderNumber(List<List> splitOrder) {
         for (List l : splitOrder) {
-            if (!l.get(1).toString().matches("^[0-9]+$")) {
+            if (!l.get(MENU_NUMBER_POSITION).toString().matches(INPUT_CONTENT_REGEX)) {
                 throw new IllegalArgumentException("[ERROR] 주문 숫자 오류 입니다.");
             }
         }
