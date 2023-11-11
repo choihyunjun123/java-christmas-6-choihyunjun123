@@ -12,32 +12,38 @@ public class Validate {
 
     private static final Order order = new Order();
 
+    //날짜 검증
     public void validateDate(String date) {
         number(date);
         range(date);
     }
 
+    //날짜 문자 검증
     public void number(String numbers) {
         if (!numbers.matches(INPUT_CONTENT_REGEX)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
+    //날짜 범위 검증
     public void range(String numbers) {
         if (Integer.parseInt(numbers) < MONTH_START_DATE || Integer.parseInt(numbers) > MONTH_END_DATE) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
+    //주문 메뉴 검증
     public void validateOrder(String orderMenu) {
         List<List> splitOrder = order.splitOrder(orderMenu);
         form(splitOrder);
-        orderNumber(splitOrder);
+        orderNumberWord(splitOrder);
+        orderNumberRange(splitOrder);
         duplication(splitOrder);
         HashMap<String, Integer> menuAndNumber = order.putOrder(splitOrder);
         menuExist(menuAndNumber);
     }
 
+    //주문 입력 형식 검증
     public void form(List<List> splitOrder) {
         for (List l : splitOrder) {
             if (l.size() != MENU_NUMBER_LIST_SIZE) {
@@ -46,7 +52,8 @@ public class Validate {
         }
     }
 
-    public void orderNumber(List<List> splitOrder) {
+    //주문 메뉴 개수 문자 검증
+    public void orderNumberWord(List<List> splitOrder) {
         for (List l : splitOrder) {
             if (!l.get(MENU_NUMBER_POSITION).toString().matches(INPUT_CONTENT_REGEX)) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
@@ -54,6 +61,16 @@ public class Validate {
         }
     }
 
+    //주문 메뉴 개수 최소 숫자 검증
+    public void orderNumberRange(List<List> splitOrder) {
+        for (List l : splitOrder) {
+            if (Integer.parseInt(l.get(MENU_NUMBER_POSITION).toString()) < 1) {
+                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
+        }
+    }
+
+    //주문 메뉴 중복 검증
     public void duplication(List<List> splitOrder) {
         List<Object> allMenu = new ArrayList<>();
         Set<Object> organizedMenu = new HashSet<>();
@@ -66,54 +83,25 @@ public class Validate {
         }
     }
 
+    //존재 메뉴 검증
     public void menuExist(HashMap<String, Integer> menuAndNumber) {
-        int appetizer = appetizerCheck(menuAndNumber);
-        int main = mainCheck(menuAndNumber);
-        int dessert = dessertCheck(menuAndNumber);
-        int drink = drinkCheck(menuAndNumber);
-        int orderNum = appetizer + main + dessert + drink;
-        if (menuAndNumber.size() != orderNum) {
+        int appetizer = menuCheck(menuAndNumber, Menu.Appetizer.values());
+        int main = menuCheck(menuAndNumber, Menu.Main.values());
+        int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
+        int drink = menuCheck(menuAndNumber, Menu.Drink.values());
+        int orderNameNum = appetizer + main + dessert + drink;
+        if (menuAndNumber.size() != orderNameNum) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-        System.out.println(orderNum);
 //        if (c.equals("양송이스프")) {
 //            System.out.println(1);
 //        }
     }
 
-    public int appetizerCheck(HashMap<String, Integer> menuAndNumber) {
+    // 메뉴 존재 검증
+    public int menuCheck(HashMap<String, Integer> menuAndNumber, Enum<?>[] menuValues) {
         int orderNum = 0;
-        for (Menu.Appetizer menu : Menu.Appetizer.values()) {
-            if (menuAndNumber.containsKey(String.valueOf(menu))) {
-                orderNum++;
-            }
-        }
-        return orderNum;
-    }
-
-    public int mainCheck(HashMap<String, Integer> menuAndNumber) {
-        int orderNum = 0;
-        for (Menu.Main menu : Menu.Main.values()) {
-            if (menuAndNumber.containsKey(String.valueOf(menu))) {
-                orderNum++;
-            }
-        }
-        return orderNum;
-    }
-
-    public int dessertCheck(HashMap<String, Integer> menuAndNumber) {
-        int orderNum = 0;
-        for (Menu.Dessert menu : Menu.Dessert.values()) {
-            if (menuAndNumber.containsKey(String.valueOf(menu))) {
-                orderNum++;
-            }
-        }
-        return orderNum;
-    }
-
-    public int drinkCheck(HashMap<String, Integer> menuAndNumber) {
-        int orderNum = 0;
-        for (Menu.Drink menu : Menu.Drink.values()) {
+        for (Enum<?> menu : menuValues) {
             if (menuAndNumber.containsKey(String.valueOf(menu))) {
                 orderNum++;
             }
