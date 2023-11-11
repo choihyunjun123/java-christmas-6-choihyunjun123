@@ -11,6 +11,10 @@ public class OutputView {
     }
 
     public void preview(int day) {
-        System.out.println("12월 " + day + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        System.out.println("12월 " + day + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n");
+    }
+
+    public void orderList(String key, Integer value) {
+        System.out.println(key + " " + value + "개");
     }
 }

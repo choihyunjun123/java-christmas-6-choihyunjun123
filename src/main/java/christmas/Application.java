@@ -4,12 +4,15 @@ import christmas.model.Validate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Application {
 
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
     private static final Validate validate = new Validate();
-
+    private static HashMap<String, Integer> menuAndNumber = new HashMap<>();
     private static int visitDay;
 
     public static void validateDate() {
@@ -23,10 +26,16 @@ public class Application {
 
     public static void validateMenu() {
         try {
-            validate.validateOrder(inputView.readMenu());
+            menuAndNumber = validate.validateOrder(inputView.readMenu());
         } catch (IllegalArgumentException e) {
             outputView.error(e.getMessage());
             validateMenu();
+        }
+    }
+
+    public static void showOrder(HashMap<String, Integer> orders) {
+        for (Map.Entry<String, Integer> entry : orders.entrySet()) {
+            outputView.orderList(entry.getKey(), entry.getValue());
         }
     }
 
@@ -35,5 +44,6 @@ public class Application {
         validateDate();
         validateMenu();
         outputView.preview(visitDay);
+        showOrder(menuAndNumber);
     }
 }
