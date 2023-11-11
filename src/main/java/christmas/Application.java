@@ -26,14 +26,6 @@ public class Application {
             outputView.errorMessage(e.getMessage());
             validateMenu();
         }
-
-
-//        for (Menu.Appetizer a : Menu.Appetizer.values()) {
-//            validateMenu(String.valueOf(a));
-//        }
-//        if (c.equals("양송이스프")){
-//            System.out.println(1);
-//        }
     }
 
 
