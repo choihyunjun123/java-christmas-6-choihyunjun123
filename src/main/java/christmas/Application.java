@@ -1,9 +1,13 @@
 package christmas;
 
 import christmas.model.Menu;
+import christmas.model.Order;
 import christmas.model.Validate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import org.mockito.internal.matchers.Or;
+
+import java.util.*;
 
 public class Application {
 
@@ -20,8 +24,9 @@ public class Application {
         }
     }
 
-    public static void validateMenu(String c) {
-        inputView.readMenu();
+    public static void validateMenu() {
+        Order order = new Order();
+        HashMap<Object, Object> orderAndNum = order.splitOrder(inputView.readMenu());
 //        for (Menu.Appetizer a : Menu.Appetizer.values()) {
 //            validateMenu(String.valueOf(a));
 //        }
@@ -32,8 +37,8 @@ public class Application {
 
 
     public static void main(String[] args) {
-        outputView.startMessage();
-        validateDate();
-
+//        outputView.startMessage();
+//        validateDate();
+        validateMenu();
     }
 }
