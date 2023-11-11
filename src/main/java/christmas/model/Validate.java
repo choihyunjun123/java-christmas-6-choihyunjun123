@@ -41,6 +41,7 @@ public class Validate {
         duplication(splitOrder);
         HashMap<String, Integer> menuAndNumber = order.putOrder(splitOrder);
         menuExist(menuAndNumber);
+        drinkOnly(menuAndNumber);
     }
 
     //주문 입력 형식 검증
@@ -93,9 +94,17 @@ public class Validate {
         if (menuAndNumber.size() != orderNameNum) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-//        if (c.equals("양송이스프")) {
-//            System.out.println(1);
-//        }
+    }
+
+    //음료만 주문 검증
+    public void drinkOnly(HashMap<String, Integer> menuAndNumber) {
+        int appetizer = menuCheck(menuAndNumber, Menu.Appetizer.values());
+        int main = menuCheck(menuAndNumber, Menu.Main.values());
+        int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
+        int drink = menuCheck(menuAndNumber, Menu.Drink.values());
+        if (appetizer == 0 && main == 0 && dessert == 0 && drink != 0) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
     }
 
     // 메뉴 존재 검증
