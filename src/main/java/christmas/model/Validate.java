@@ -10,14 +10,15 @@ public class Validate {
     private static final int MENU_NUMBER_POSITION = 1;
     private static final int MENU_NUMBER_LIST_SIZE = 2;
     private static final int INITIAL_VALUE_OF_ORDER_NUM = 0;
-    private static final int MAXIMUM_VALUE_OF_ORDER_NUM = 0;
+    private static final int MAXIMUM_VALUE_OF_ORDER_NUM = 20;
 
     private static final Order order = new Order();
 
     //날짜 검증
-    public void validateDate(String date) {
+    public int validateDate(String date) {
         number(date);
         range(date);
+        return Integer.parseInt(date);
     }
 
     //날짜 문자 검증
@@ -133,6 +134,5 @@ public class Validate {
         if (totalNum > MAXIMUM_VALUE_OF_ORDER_NUM) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-        System.out.println(totalNum);
     }
 }
