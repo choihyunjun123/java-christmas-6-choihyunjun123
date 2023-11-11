@@ -1,5 +1,6 @@
 package christmas.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Validate {
@@ -26,11 +27,26 @@ public class Validate {
         }
     }
 
-    public void form(String orderMenu) {
+    public void validateOrder(String orderMenu) {
         List<List> splitOrder = order.splitOrder(orderMenu);
+        form(splitOrder);
+        orderNumber(splitOrder);
+//        HashMap<Object, Object> menuAndNumber = order.putOrder(order.splitOrder(orderMenu));
+//        System.out.println(menuAndNumber);
+    }
+
+    public void form(List<List> splitOrder) {
         for (List l : splitOrder) {
             if (l.size() != 2) {
                 throw new IllegalArgumentException("[ERROR] 입력 형식 오류 입니다.");
+            }
+        }
+    }
+
+    public void orderNumber(List<List> splitOrder) {
+        for (List l : splitOrder) {
+            if (!l.get(1).toString().matches("^[0-9]+$")) {
+                throw new IllegalArgumentException("[ERROR] 주문 숫자 오류 입니다.");
             }
         }
     }

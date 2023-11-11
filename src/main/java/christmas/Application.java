@@ -21,7 +21,7 @@ public class Application {
 
     public static void validateMenu() {
         try {
-            validate.form(inputView.readMenu());
+            validate.validateOrder(inputView.readMenu());
         } catch (IllegalArgumentException e) {
             outputView.errorMessage(e.getMessage());
             validateMenu();
@@ -38,8 +38,8 @@ public class Application {
 
 
     public static void main(String[] args) {
-//        outputView.startMessage();
-//        validateDate();
+        outputView.startMessage();
+        validateDate();
         validateMenu();
     }
 }
