@@ -7,7 +7,6 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 

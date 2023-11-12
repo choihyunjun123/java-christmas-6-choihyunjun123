@@ -1,8 +1,5 @@
 package christmas.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Menu {
 
     public enum Appetizer {
