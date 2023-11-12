@@ -7,6 +7,7 @@ public class Payment {
 
     private static final int INITIAL_VALUE_OF_AMOUNT = 0;
 
+    //할인 전 금액
     public int originalAmount(HashMap<String, Integer> menuAndNumber) {
         int totalAmount = INITIAL_VALUE_OF_AMOUNT;
         for (Map.Entry<String, Integer> entry : menuAndNumber.entrySet()) {
