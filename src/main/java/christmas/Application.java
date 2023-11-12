@@ -95,6 +95,6 @@ public class Application {
         outputView.originalPrice(won.format(originalPrice));
         showGift(originalPrice);
         giftPut(originalPrice, discount.totalDiscount(visitDay, menuAndNumber));
-        totalDiscount = Discount.showTotalDiscountAmount(discountAndAmount);
+        totalDiscount = discount.totalDiscountAmount(discountAndAmount);
     }
 }

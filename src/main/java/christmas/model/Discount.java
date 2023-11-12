@@ -20,6 +20,7 @@ public class Discount {
 
     private static final HashMap<String, Integer> discoutAndNumbers = new HashMap<>();
 
+    //할일 목록 구하기
     public HashMap<String, Integer> totalDiscount(int visitDay, HashMap<String, Integer> menuAndNumber) {
         christmas(visitDay);
         weekday(visitDay, menuAndNumber);
@@ -28,6 +29,7 @@ public class Discount {
         return discoutAndNumbers;
     }
 
+    //크리스마스 할인 계산
     public int christmas(int visitDay) {
         int christmasDiscount = INITIAL_VALUE_OF_DISCOUNT;
         if (visitDay <= CHRISTMAS_DISCOUNT_DUE_DATE) {
@@ -39,6 +41,7 @@ public class Discount {
         return christmasDiscount;
     }
 
+    //평일 할인 계산
     public int weekday(int visitDay, HashMap<String, Integer> menuAndNumber) {
         int weekdayDiscount = INITIAL_VALUE_OF_DISCOUNT;
         int dessertNum = new Validate().menuCheck(menuAndNumber, Menu.Dessert.values());
@@ -52,6 +55,7 @@ public class Discount {
         return weekdayDiscount;
     }
 
+    //주말 할인 계산
     public int weekend(int visitDay, HashMap<String, Integer> menuAndNumber) {
         int weekendDiscount = INITIAL_VALUE_OF_DISCOUNT;
         int mainNum = new Validate().menuCheck(menuAndNumber, Menu.Main.values());
@@ -65,6 +69,7 @@ public class Discount {
         return weekendDiscount;
     }
 
+    //특별 할인 계산
     public int special(int visitDay) {
         int specialDiscount = INITIAL_VALUE_OF_DISCOUNT;
         LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
@@ -78,12 +83,11 @@ public class Discount {
     }
 
     //총 할인 금액 표시
-    public static int showTotalDiscountAmount(HashMap<String, Integer> discount) {
+    public int totalDiscountAmount(HashMap<String, Integer> discount) {
         int totalDiscount = 0;
         for (Map.Entry<String, Integer> entry : discount.entrySet()) {
             totalDiscount += entry.getValue();
         }
-        System.out.println(totalDiscount);
         return totalDiscount;
     }
 }
