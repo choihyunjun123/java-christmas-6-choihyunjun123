@@ -15,7 +15,7 @@ public class Discount {
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
     private static final int WEEKDAY_DISCOUNT_INCREMENT = 2023;
-    
+
     private static HashMap<String, Integer> discoutAndNumbers = new HashMap<>();
 
     public HashMap<String, Integer> totalDiscount(int visitDay, HashMap<String, Integer> menuAndNumber) {
