@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DiscountTest {
 
-    public static final int VISIT_DAY = 20;
-
     public static HashMap<String, Integer> order = new HashMap<>();
     public static HashMap<String, Integer> discountExpect = new HashMap<>();
 
@@ -21,6 +19,7 @@ class DiscountTest {
     static void beforeAll() {
         order.put("양송이스프", 2);
         order.put("초코케이크", 2);
+        order.put("티본스테이크", 2);
         discountExpect.put("크리스마스 디데이 할인", 2900);
         discountExpect.put("평일 할인", 4046);
     }
@@ -29,7 +28,7 @@ class DiscountTest {
     @Test
     void totalDiscount() {
         Discount discount = new Discount();
-        HashMap<String, Integer> test = discount.totalDiscount(VISIT_DAY, order);
+        HashMap<String, Integer> test = discount.totalDiscount(20, order);
         assertThat(test).isEqualTo(discountExpect);
     }
 
@@ -37,7 +36,7 @@ class DiscountTest {
     @Test
     void christmas() {
         Discount discount = new Discount();
-        int result = discount.christmas(VISIT_DAY);
+        int result = discount.christmas(20);
         assertThat(result).isEqualTo(2900);
     }
 
@@ -45,7 +44,15 @@ class DiscountTest {
     @Test
     void weekday() {
         Discount discount = new Discount();
-        int result = discount.weekday(VISIT_DAY, order);
+        int result = discount.weekday(20, order);
+        assertThat(result).isEqualTo(4046);
+    }
+
+    @DisplayName("주말 할인 내역 확인")
+    @Test
+    void weekend() {
+        Discount discount = new Discount();
+        int result = discount.weekend(22, order);
         assertThat(result).isEqualTo(4046);
     }
 }
