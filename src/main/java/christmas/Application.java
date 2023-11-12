@@ -5,11 +5,13 @@ import christmas.model.Validate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Application {
 
+    private static final DecimalFormat won = new DecimalFormat("###,###");
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
     private static final Validate validate = new Validate();
@@ -42,12 +44,17 @@ public class Application {
         }
     }
 
+    public static String initialPrice() {
+        originalPrice = payment.originalAmount(menuAndNumber);
+        return won.format(payment.originalAmount(menuAndNumber));
+    }
+
     public static void main(String[] args) {
         outputView.start();
         validateDate();
         validateMenu();
         outputView.preview(visitDay);
         showOrder(menuAndNumber);
-        System.out.println(payment.originalAmount(menuAndNumber));
+        outputView.originalPrice(initialPrice());
     }
 }
