@@ -5,10 +5,12 @@ import java.util.Map;
 
 public class Payment {
 
+    private static final int INITIAL_VALUE_OF_AMOUNT = 0;
+
     private static final Order order = new Order();
 
     public int originalAmount(HashMap<String, Integer> menuAndNumber) {
-        int totalAmount = 0;
+        int totalAmount = INITIAL_VALUE_OF_AMOUNT;
         for (Map.Entry<String, Integer> entry : menuAndNumber.entrySet()) {
             totalAmount += appetizerAmount(entry) + mainAmount(entry) + dessertAmount(entry) + drinkAmount(entry);
         }
@@ -16,40 +18,40 @@ public class Payment {
     }
 
     public int appetizerAmount(Map.Entry<String, Integer> entry) {
-        int totalAppetizerAmount = 0;
-        for (Menu.Appetizer a : Menu.Appetizer.values()) {
-            if (String.valueOf(a).equals(entry.getKey())) {
-                totalAppetizerAmount += a.totalPrice(entry.getValue());
+        int totalAppetizerAmount = INITIAL_VALUE_OF_AMOUNT;
+        for (Menu.Appetizer appe : Menu.Appetizer.values()) {
+            if (String.valueOf(appe).equals(entry.getKey())) {
+                totalAppetizerAmount += appe.totalPrice(entry.getValue());
             }
         }
         return totalAppetizerAmount;
     }
 
     public int mainAmount(Map.Entry<String, Integer> entry) {
-        int totalMainAmount = 0;
-        for (Menu.Main a : Menu.Main.values()) {
-            if (String.valueOf(a).equals(entry.getKey())) {
-                totalMainAmount += a.totalPrice(entry.getValue());
+        int totalMainAmount = INITIAL_VALUE_OF_AMOUNT;
+        for (Menu.Main main : Menu.Main.values()) {
+            if (String.valueOf(main).equals(entry.getKey())) {
+                totalMainAmount += main.totalPrice(entry.getValue());
             }
         }
         return totalMainAmount;
     }
 
     public int dessertAmount(Map.Entry<String, Integer> entry) {
-        int totalDessertAmount = 0;
-        for (Menu.Dessert a : Menu.Dessert.values()) {
-            if (String.valueOf(a).equals(entry.getKey())) {
-                totalDessertAmount += a.totalPrice(entry.getValue());
+        int totalDessertAmount = INITIAL_VALUE_OF_AMOUNT;
+        for (Menu.Dessert dess : Menu.Dessert.values()) {
+            if (String.valueOf(dess).equals(entry.getKey())) {
+                totalDessertAmount += dess.totalPrice(entry.getValue());
             }
         }
         return totalDessertAmount;
     }
 
     public int drinkAmount(Map.Entry<String, Integer> entry) {
-        int totalDrinkAmount = 0;
-        for (Menu.Drink a : Menu.Drink.values()) {
-            if (String.valueOf(a).equals(entry.getKey())) {
-                totalDrinkAmount += a.totalPrice(entry.getValue());
+        int totalDrinkAmount = INITIAL_VALUE_OF_AMOUNT;
+        for (Menu.Drink drink : Menu.Drink.values()) {
+            if (String.valueOf(drink).equals(entry.getKey())) {
+                totalDrinkAmount += drink.totalPrice(entry.getValue());
             }
         }
         return totalDrinkAmount;
