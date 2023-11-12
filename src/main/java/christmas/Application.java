@@ -7,6 +7,7 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,5 +61,6 @@ public class Application {
         showOrder(menuAndNumber);
         outputView.originalPrice(decimalPrice());
         discount.gift(originalPrice);
+        System.out.println(discount.totalDiscount(visitDay, menuAndNumber));
     }
 }
