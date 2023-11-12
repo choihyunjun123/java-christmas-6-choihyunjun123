@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class Application {
 
+    private static final int GIFT_PRESENT_AMOUNT = 120000;
+
     private static int visitDay;
     private static int originalPrice;
 
@@ -53,6 +55,15 @@ public class Application {
         return won.format(payment.originalAmount(menuAndNumber));
     }
 
+    public static void gift(int originalPrice) {
+        if (originalPrice >= GIFT_PRESENT_AMOUNT) {
+            outputView.gift("샴페인 1개");
+        }
+        if (originalPrice < GIFT_PRESENT_AMOUNT) {
+            outputView.gift("없음");
+        }
+    }
+
     public static void main(String[] args) {
         outputView.start();
         validateDate();
@@ -60,7 +71,7 @@ public class Application {
         outputView.preview(visitDay);
         showOrder(menuAndNumber);
         outputView.originalPrice(decimalPrice());
-        discount.gift(originalPrice);
+        gift(originalPrice);
         System.out.println(discount.totalDiscount(visitDay, menuAndNumber));
     }
 }

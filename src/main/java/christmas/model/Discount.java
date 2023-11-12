@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public class Discount {
 
-    private static final int GIFT_PRESENT_AMOUNT = 120000;
     private static final int INITIAL_VALUE_OF_DISCOUNT = 0;
     private static final int CHRISTMAS_DISCOUNT_DUE_DATE = 25;
     private static final int CHRISTMAS_DISCOUNT_START_PRICE = 1000;
@@ -16,15 +15,6 @@ public class Discount {
 
     private static final OutputView outputView = new OutputView();
     private static HashMap<String, Integer> discoutAndNumbers = new HashMap<>();
-
-    public void gift(int originalPrice) {
-        if (originalPrice >= GIFT_PRESENT_AMOUNT) {
-            outputView.gift("샴페인 1개");
-        }
-        if (originalPrice < GIFT_PRESENT_AMOUNT) {
-            outputView.gift("없음");
-        }
-    }
 
     public HashMap<String, Integer> totalDiscount(int visitDay, HashMap<String, Integer> menuAndNumber) {
         christmas(visitDay);
