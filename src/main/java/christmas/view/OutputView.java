@@ -18,4 +18,9 @@ public class OutputView {
     public void orderList(String key, Integer value) {
         System.out.println(key + " " + value + "개");
     }
+
+    public void originalPrice(String originalPrice) {
+        System.out.println("\n<할인 전 총주문 금액>");
+        System.out.println(originalPrice + "원");
+    }
 }
