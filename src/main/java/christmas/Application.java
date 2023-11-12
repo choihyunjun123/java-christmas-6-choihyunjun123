@@ -14,6 +14,7 @@ public class Application {
 
     private static final int GIFT_PRESENT_AMOUNT = 120000;
     private static final int PRICE_OF_CHAMPAGNE = 25000;
+    private static final int PRICE_OF_EVENT_START = 10000;
 
     private static int visitDay;
     private static int originalPrice;
@@ -63,9 +64,9 @@ public class Application {
         }
     }
 
-    public static void giftPut(int originalPrice, HashMap<String, Integer> discount) {
-        if (originalPrice >= 10000) {
-            discountAndAmount = discount;
+    public static void giftPut(int originalPrice, HashMap<String, Integer> discountTotal) {
+        if (originalPrice >= PRICE_OF_EVENT_START) {
+            discountAndAmount = discountTotal;
         }
         if (originalPrice >= GIFT_PRESENT_AMOUNT) {
             discountAndAmount.put("증정 이벤트", PRICE_OF_CHAMPAGNE);
@@ -86,6 +87,18 @@ public class Application {
         }
     }
 
+    //총 할인 금액 출력
+    public static void showtotalDiscount(HashMap<String, Integer> discountTotal) {
+        outputView.discountTotalStart();
+        totalDiscount = discount.totalDiscountAmount(discountTotal);
+        if (discountTotal.isEmpty()) {
+            outputView.none();
+        }
+        if (!discountTotal.isEmpty()) {
+            outputView.discountTotal(won.format(totalDiscount));
+        }
+    }
+
     public static void main(String[] args) {
         outputView.start();
         validateDate();
@@ -95,6 +108,6 @@ public class Application {
         outputView.originalPrice(won.format(originalPrice));
         showGift(originalPrice);
         giftPut(originalPrice, discount.totalDiscount(visitDay, menuAndNumber));
-        totalDiscount = discount.totalDiscountAmount(discountAndAmount);
+        showtotalDiscount(discountAndAmount);
     }
 }

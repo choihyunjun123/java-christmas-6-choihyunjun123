@@ -43,4 +43,12 @@ public class OutputView {
     public void discountList(String key, String value) {
         System.out.println(key + ": -" + value + "원");
     }
+
+    public void discountTotalStart() {
+        System.out.println("\n<총혜택 금액>");
+    }
+
+    public void discountTotal(String value) {
+        System.out.println("-" + value + "원");
+    }
 }
