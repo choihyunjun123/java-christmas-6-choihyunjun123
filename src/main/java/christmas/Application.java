@@ -13,6 +13,7 @@ import java.util.Map;
 public class Application {
 
     private static final int GIFT_PRESENT_AMOUNT = 120000;
+    private static final int PRICE_OF_CHAMPAGNE = 25000;
 
     private static int visitDay;
     private static int originalPrice;
@@ -24,6 +25,7 @@ public class Application {
     private static final Payment payment = new Payment();
     private static final Discount discount = new Discount();
     private static HashMap<String, Integer> menuAndNumber = new HashMap<>();
+    private static HashMap<String, Integer> discountAndAmount = new HashMap<>();
 
     public static void validateDate() {
         try {
@@ -55,11 +57,32 @@ public class Application {
     }
 
     public static void gift(int originalPrice) {
+        outputView.giftStart();
         if (originalPrice >= GIFT_PRESENT_AMOUNT) {
-            outputView.gift("샴페인 1개");
+            outputView.gift();
         }
         if (originalPrice < GIFT_PRESENT_AMOUNT) {
-            outputView.gift("없음");
+            outputView.none();
+        }
+    }
+
+    public static void giftPut(int originalPrice, HashMap<String, Integer> discount) {
+        discountAndAmount = discount;
+        if (originalPrice >= GIFT_PRESENT_AMOUNT) {
+            discountAndAmount.put("증정 이벤트", PRICE_OF_CHAMPAGNE);
+        }
+        showDiscount(discountAndAmount);
+    }
+
+    public static void showDiscount(HashMap<String, Integer> discount) {
+        outputView.discountStart();
+        if (!discount.isEmpty()) {
+            for (Map.Entry<String, Integer> entry : discount.entrySet()) {
+                outputView.discountList(entry.getKey(), won.format(entry.getValue()));
+            }
+        }
+        if (discount.isEmpty()) {
+            outputView.none();
         }
     }
 
@@ -71,6 +94,6 @@ public class Application {
         showOrder(menuAndNumber);
         outputView.originalPrice(decimalPrice());
         gift(originalPrice);
-        System.out.println(discount.totalDiscount(visitDay, menuAndNumber));
+        giftPut(originalPrice, discount.totalDiscount(visitDay, menuAndNumber));
     }
 }
