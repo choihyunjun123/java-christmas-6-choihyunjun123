@@ -44,9 +44,18 @@ public class Application {
         }
     }
 
-    public static String initialPrice() {
+    public static String decimalPrice() {
         originalPrice = payment.originalAmount(menuAndNumber);
         return won.format(payment.originalAmount(menuAndNumber));
+    }
+
+    public static void gift() {
+        if (originalPrice >= 120000) {
+            outputView.gift("샴페인 1개");
+        }
+        if (originalPrice < 120000) {
+            outputView.gift("없음");
+        }
     }
 
     public static void main(String[] args) {
@@ -55,6 +64,7 @@ public class Application {
         validateMenu();
         outputView.preview(visitDay);
         showOrder(menuAndNumber);
-        outputView.originalPrice(initialPrice());
+        outputView.originalPrice(decimalPrice());
+        gift();
     }
 }

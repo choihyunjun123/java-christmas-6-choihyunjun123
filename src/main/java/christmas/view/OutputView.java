@@ -23,4 +23,9 @@ public class OutputView {
         System.out.println("\n<할인 전 총주문 금액>");
         System.out.println(originalPrice + "원");
     }
+
+    public void gift(String message) {
+        System.out.println("\n<증정 메뉴>");
+        System.out.println(message);
+    }
 }
