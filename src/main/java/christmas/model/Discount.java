@@ -14,4 +14,12 @@ public class Discount {
             outputView.gift("없음");
         }
     }
+
+    public int christmas(int visitDay) {
+        int christmasDiscount = 0;
+        if (visitDay <= 25) {
+            christmasDiscount = 1000 + 100 * (visitDay-1);
+        }
+        return christmasDiscount;
+    }
 }
