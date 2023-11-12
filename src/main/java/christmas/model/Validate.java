@@ -46,7 +46,6 @@ public class Validate {
         menuExist(menuAndNumber);
         drinkOnly(menuAndNumber);
         totalOrderNum(menuAndNumber);
-        System.out.println(menuOrderNum(menuAndNumber));
         return menuAndNumber;
     }
 
