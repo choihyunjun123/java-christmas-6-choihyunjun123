@@ -25,7 +25,6 @@ class DiscountTest {
         discountExpect.put("평일 할인", 4046);
     }
 
-
     @DisplayName("전체 할인 내역 확인")
     @Test
     void totalDiscount() {

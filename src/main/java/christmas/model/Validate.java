@@ -94,7 +94,7 @@ public class Validate {
         int orderNameNum = menuOrderNum(menuAndNumber);
         int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
         for (Integer order : menuAndNumber.values()) {
-            orderNum+=order;
+            orderNum += order;
         }
         if (orderNum != orderNameNum) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
@@ -110,7 +110,7 @@ public class Validate {
         }
     }
 
-    //메뉴 주문 개수 검증
+    //메뉴 주문 개수 계산
     public int menuCheck(HashMap<String, Integer> menuAndNumber, Enum<?>[] menuValues) {
         int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
         for (Enum<?> menu : menuValues) {

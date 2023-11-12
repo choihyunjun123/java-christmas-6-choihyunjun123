@@ -25,7 +25,7 @@ class OrderTest {
     @Test
     void putOrder() {
         HashMap<String, Integer> test = new HashMap<>();
-        test.put("양송이스프",1);
+        test.put("양송이스프", 1);
         Order order = new Order();
         HashMap<String, Integer> result = order.putOrder(splitOrders);
         assertThat(result).isEqualTo(test);
