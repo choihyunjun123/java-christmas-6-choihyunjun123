@@ -53,7 +53,7 @@ public class Application {
 
     public static String decimalPrice() {
         originalPrice = payment.originalAmount(menuAndNumber);
-        return won.format(payment.originalAmount(menuAndNumber));
+        return won.format(originalPrice);
     }
 
     public static void gift(int originalPrice) {
