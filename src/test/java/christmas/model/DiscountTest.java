@@ -20,15 +20,16 @@ class DiscountTest {
         order.put("양송이스프", 2);
         order.put("초코케이크", 2);
         order.put("티본스테이크", 2);
-        discountExpect.put("크리스마스 디데이 할인", 2900);
+        discountExpect.put("크리스마스 디데이 할인", 2600);
         discountExpect.put("평일 할인", 4046);
+        discountExpect.put("특별 할인", 1000);
     }
 
     @DisplayName("전체 할인 내역 확인")
     @Test
     void totalDiscount() {
         Discount discount = new Discount();
-        HashMap<String, Integer> test = discount.totalDiscount(20, order);
+        HashMap<String, Integer> test = discount.totalDiscount(17, order);
         assertThat(test).isEqualTo(discountExpect);
     }
 
@@ -54,5 +55,13 @@ class DiscountTest {
         Discount discount = new Discount();
         int result = discount.weekend(22, order);
         assertThat(result).isEqualTo(4046);
+    }
+
+    @DisplayName("특별 할인 내역 확인")
+    @Test
+    void special() {
+        Discount discount = new Discount();
+        int result = discount.special(17);
+        assertThat(result).isEqualTo(1000);
     }
 }
