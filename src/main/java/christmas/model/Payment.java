@@ -15,6 +15,7 @@ public class Payment {
         return totalAmount;
     }
 
+    //에피타이저 구입 금액
     public int appetizerAmount(Map.Entry<String, Integer> entry) {
         int totalAppetizerAmount = INITIAL_VALUE_OF_AMOUNT;
         for (Menu.Appetizer appe : Menu.Appetizer.values()) {
@@ -25,6 +26,7 @@ public class Payment {
         return totalAppetizerAmount;
     }
 
+    //메인 구입 금액
     public int mainAmount(Map.Entry<String, Integer> entry) {
         int totalMainAmount = INITIAL_VALUE_OF_AMOUNT;
         for (Menu.Main main : Menu.Main.values()) {
@@ -35,6 +37,7 @@ public class Payment {
         return totalMainAmount;
     }
 
+    //디져트 구입 금액
     public int dessertAmount(Map.Entry<String, Integer> entry) {
         int totalDessertAmount = INITIAL_VALUE_OF_AMOUNT;
         for (Menu.Dessert dess : Menu.Dessert.values()) {
@@ -45,6 +48,7 @@ public class Payment {
         return totalDessertAmount;
     }
 
+    //음료수 구입 금액
     public int drinkAmount(Map.Entry<String, Integer> entry) {
         int totalDrinkAmount = INITIAL_VALUE_OF_AMOUNT;
         for (Menu.Drink drink : Menu.Drink.values()) {
