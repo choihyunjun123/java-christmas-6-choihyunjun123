@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class Discount {
 
     private static final int INITIAL_VALUE_OF_DISCOUNT = 0;
+    private static final int PECIAL_DISCOUNT_AMOUNT = 1000;
     private static final int CHRISTMAS_DISCOUNT_DUE_DATE = 25;
     private static final int CHRISTMAS_DISCOUNT_START_PRICE = 1000;
     private static final int CHRISTMAS_DISCOUNT_INCREMENT = 100;
@@ -21,6 +22,7 @@ public class Discount {
         christmas(visitDay);
         weekday(visitDay, menuAndNumber);
         weekend(visitDay, menuAndNumber);
+        special(visitDay);
         return discoutAndNumbers;
     }
 
@@ -59,5 +61,13 @@ public class Discount {
             discoutAndNumbers.put("주말 할인", weekendDiscount);
         }
         return weekendDiscount;
+    }
+
+    public int special(int visitDay) {
+        LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
+        if (day.getDayOfWeek().toString().equals("SUNDAY") || visitDay == 25) {
+            discoutAndNumbers.put("특별 할인", PECIAL_DISCOUNT_AMOUNT);
+        }
+        return PECIAL_DISCOUNT_AMOUNT;
     }
 }
