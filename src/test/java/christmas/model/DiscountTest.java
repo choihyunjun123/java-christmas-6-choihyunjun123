@@ -64,4 +64,12 @@ class DiscountTest {
         int result = discount.special(17);
         assertThat(result).isEqualTo(1000);
     }
+
+    @DisplayName("총 할인 금액 내역 확인")
+    @Test
+    void totalDiscountAmount() {
+        Discount discount = new Discount();
+        int result = discount.totalDiscountAmount(discountExpect);
+        assertThat(result).isEqualTo(7646);
+    }
 }
