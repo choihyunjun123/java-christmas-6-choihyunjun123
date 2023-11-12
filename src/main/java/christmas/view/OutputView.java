@@ -51,4 +51,16 @@ public class OutputView {
     public void discountTotal(String value) {
         System.out.println("-" + value + "원");
     }
+
+    public void payAmountStart() {
+        System.out.println("\n<할인 후 예상 결제 금액>");
+    }
+
+    public void payAmount(String value) {
+        System.out.println(value + "원");
+    }
+
+    public void badgeStart() {
+        System.out.println("\n<12월 이벤트 배지>");
+    }
 }

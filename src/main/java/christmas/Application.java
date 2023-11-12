@@ -99,6 +99,22 @@ public class Application {
         }
     }
 
+    //최종 결제 금액 출력
+    public static void showPayAmount(HashMap<String, Integer> discountTotal) {
+        outputView.payAmountStart();
+        if (discountTotal.isEmpty()) {
+            outputView.payAmount(won.format(originalPrice));
+        }
+        if (!discountTotal.isEmpty()) {
+            if (discountTotal.containsKey("증정 이벤트")){
+                outputView.payAmount(won.format(originalPrice - totalDiscount + PRICE_OF_CHAMPAGNE));
+            }
+            if (!discountTotal.containsKey("증정 이벤트")){
+                outputView.payAmount(won.format(originalPrice - totalDiscount));
+            }
+        }
+    }
+
     public static void main(String[] args) {
         outputView.start();
         validateDate();
@@ -109,5 +125,6 @@ public class Application {
         showGift(originalPrice);
         giftPut(originalPrice, discount.totalDiscount(visitDay, menuAndNumber));
         showtotalDiscount(discountAndAmount);
+        showPayAmount(discountAndAmount);
     }
 }
