@@ -17,6 +17,7 @@ public class Application {
 
     private static int visitDay;
     private static int originalPrice;
+    private static int totalDiscount;
 
     private static final DecimalFormat won = new DecimalFormat("###,###");
     private static final InputView inputView = new InputView();
@@ -30,6 +31,7 @@ public class Application {
     public static void validateDate() {
         try {
             visitDay = validate.validateDate(inputView.readDate());
+            validateMenu();
         } catch (IllegalArgumentException e) {
             outputView.error(e.getMessage());
             validateDate();
@@ -51,12 +53,7 @@ public class Application {
         }
     }
 
-    public static String decimalPrice() {
-        originalPrice = payment.originalAmount(menuAndNumber);
-        return won.format(originalPrice);
-    }
-
-    public static void gift(int originalPrice) {
+    public static void showGift(int originalPrice) {
         outputView.giftStart();
         if (originalPrice >= GIFT_PRESENT_AMOUNT) {
             outputView.gift();
@@ -73,10 +70,11 @@ public class Application {
         if (originalPrice >= GIFT_PRESENT_AMOUNT) {
             discountAndAmount.put("증정 이벤트", PRICE_OF_CHAMPAGNE);
         }
-        showDiscount(discountAndAmount);
+        showDiscountList(discountAndAmount);
     }
 
-    public static void showDiscount(HashMap<String, Integer> discount) {
+    //할인 목록 표시
+    public static void showDiscountList(HashMap<String, Integer> discount) {
         outputView.discountStart();
         if (!discount.isEmpty()) {
             for (Map.Entry<String, Integer> entry : discount.entrySet()) {
@@ -91,11 +89,12 @@ public class Application {
     public static void main(String[] args) {
         outputView.start();
         validateDate();
-        validateMenu();
         outputView.preview(visitDay);
         showOrder(menuAndNumber);
-        outputView.originalPrice(decimalPrice());
-        gift(originalPrice);
+        originalPrice = payment.originalAmount(menuAndNumber);
+        outputView.originalPrice(won.format(originalPrice));
+        showGift(originalPrice);
         giftPut(originalPrice, discount.totalDiscount(visitDay, menuAndNumber));
+        totalDiscount = Discount.showTotalDiscountAmount(discountAndAmount);
     }
 }

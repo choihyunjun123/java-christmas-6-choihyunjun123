@@ -4,6 +4,7 @@ import christmas.view.OutputView;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Discount {
 
@@ -74,5 +75,15 @@ public class Discount {
             discoutAndNumbers.put("특별 할인", SPECIAL_DISCOUNT_AMOUNT);
         }
         return specialDiscount;
+    }
+
+    //총 할인 금액 표시
+    public static int showTotalDiscountAmount(HashMap<String, Integer> discount) {
+        int totalDiscount = 0;
+        for (Map.Entry<String, Integer> entry : discount.entrySet()) {
+            totalDiscount += entry.getValue();
+        }
+        System.out.println(totalDiscount);
+        return totalDiscount;
     }
 }
