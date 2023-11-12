@@ -22,7 +22,7 @@ public class Discount {
         return discoutAndNumbers;
     }
 
-    public void christmas(int visitDay) {
+    public int christmas(int visitDay) {
         int christmasDiscount = INITIAL_VALUE_OF_DISCOUNT;
         if (visitDay <= CHRISTMAS_DISCOUNT_DUE_DATE) {
             christmasDiscount = CHRISTMAS_DISCOUNT_START_PRICE + CHRISTMAS_DISCOUNT_INCREMENT * (visitDay - 1);
@@ -30,9 +30,10 @@ public class Discount {
         if (christmasDiscount != INITIAL_VALUE_OF_DISCOUNT) {
             discoutAndNumbers.put("크리스마스 디데이 할인", christmasDiscount);
         }
+        return christmasDiscount;
     }
 
-    public void weekday(int visitDay, HashMap<String, Integer> menuAndNumber) {
+    public int weekday(int visitDay, HashMap<String, Integer> menuAndNumber) {
         int weekdayDiscount = INITIAL_VALUE_OF_DISCOUNT;
         int dessertNum = new Validate().menuCheck(menuAndNumber, Menu.Dessert.values());
         LocalDate day = LocalDate.of(2023, 12, visitDay);
@@ -42,5 +43,6 @@ public class Discount {
         if (weekdayDiscount != INITIAL_VALUE_OF_DISCOUNT) {
             discoutAndNumbers.put("평일 할인", weekdayDiscount);
         }
+        return weekdayDiscount;
     }
 }
