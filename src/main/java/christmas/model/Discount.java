@@ -13,13 +13,14 @@ public class Discount {
     private static final int CHRISTMAS_DISCOUNT_INCREMENT = 100;
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
-    private static final int WEEKDAY_DISCOUNT_INCREMENT = 2023;
+    private static final int WEEK_DISCOUNT_INCREMENT = 2023;
 
-    private static HashMap<String, Integer> discoutAndNumbers = new HashMap<>();
+    private static final HashMap<String, Integer> discoutAndNumbers = new HashMap<>();
 
     public HashMap<String, Integer> totalDiscount(int visitDay, HashMap<String, Integer> menuAndNumber) {
         christmas(visitDay);
         weekday(visitDay, menuAndNumber);
+        weekend(visitDay, menuAndNumber);
         return discoutAndNumbers;
     }
 
@@ -39,11 +40,24 @@ public class Discount {
         int dessertNum = new Validate().menuCheck(menuAndNumber, Menu.Dessert.values());
         LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
         if (!day.getDayOfWeek().toString().equals("FRIDAY") || !day.getDayOfWeek().toString().equals("SATURDAY")) {
-            weekdayDiscount = WEEKDAY_DISCOUNT_INCREMENT * dessertNum;
+            weekdayDiscount = WEEK_DISCOUNT_INCREMENT * dessertNum;
         }
         if (weekdayDiscount != INITIAL_VALUE_OF_DISCOUNT) {
             discoutAndNumbers.put("평일 할인", weekdayDiscount);
         }
         return weekdayDiscount;
+    }
+
+    public int weekend(int visitDay, HashMap<String, Integer> menuAndNumber) {
+        int weekendDiscount = INITIAL_VALUE_OF_DISCOUNT;
+        int mainNum = new Validate().menuCheck(menuAndNumber, Menu.Main.values());
+        LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
+        if (day.getDayOfWeek().toString().equals("FRIDAY") || day.getDayOfWeek().toString().equals("SATURDAY")) {
+            weekendDiscount = WEEK_DISCOUNT_INCREMENT * mainNum;
+        }
+        if (weekendDiscount != INITIAL_VALUE_OF_DISCOUNT) {
+            discoutAndNumbers.put("주말 할인", weekendDiscount);
+        }
+        return weekendDiscount;
     }
 }
