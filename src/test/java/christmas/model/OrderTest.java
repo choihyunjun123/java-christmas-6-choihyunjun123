@@ -1,5 +1,6 @@
 package christmas.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ class OrderTest {
 
     List<List> splitOrders = List.of(List.of("양송이스프", "1"));
 
+    @DisplayName("메뉴 쉼표 기준으로 나누기")
     @Test
     void splitOrder() {
         Order order = new Order();
@@ -19,6 +21,7 @@ class OrderTest {
         assertThat(result).isEqualTo(splitOrders);
     }
 
+    @DisplayName("메뉴 - 기준으로 나누기")
     @Test
     void putOrder() {
         HashMap<String, Integer> test = new HashMap<>();

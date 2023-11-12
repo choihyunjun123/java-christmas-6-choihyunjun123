@@ -1,6 +1,7 @@
 package christmas.model;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.transform.Result;
@@ -22,6 +23,7 @@ class PaymentTest {
         menuAndNumber.put("제로콜라", 4);
     }
 
+    @DisplayName("할인 전 주문 금액")
     @Test
     void originalAmount() {
         int result = 0;
@@ -30,6 +32,7 @@ class PaymentTest {
         assertThat(result).isEqualTo(173000);
     }
 
+    @DisplayName("에피타이저 주문 금액")
     @Test
     void appetizerAmount() {
         int result = 0;
@@ -40,6 +43,7 @@ class PaymentTest {
         assertThat(result).isEqualTo(6000);
     }
 
+    @DisplayName("메인 주문 금액")
     @Test
     void mainAmount() {
         int result = 0;
@@ -50,6 +54,7 @@ class PaymentTest {
         assertThat(result).isEqualTo(110000);
     }
 
+    @DisplayName("디저트 주문 금액")
     @Test
     void dessertAmount() {
         int result = 0;
@@ -60,6 +65,7 @@ class PaymentTest {
         assertThat(result).isEqualTo(45000);
     }
 
+    @DisplayName("음료 주문 금액")
     @Test
     void drinkAmount() {
         int result = 0;
