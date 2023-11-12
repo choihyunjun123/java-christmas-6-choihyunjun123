@@ -63,4 +63,8 @@ public class OutputView {
     public void badgeStart() {
         System.out.println("\n<12월 이벤트 배지>");
     }
+
+    public void badge(String value) {
+        System.out.println(value);
+    }
 }

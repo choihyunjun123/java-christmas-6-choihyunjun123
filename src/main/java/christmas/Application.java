@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.model.EventBadge;
 import christmas.model.Discount;
 import christmas.model.Payment;
 import christmas.model.Validate;
@@ -115,6 +116,13 @@ public class Application {
         }
     }
 
+    //배지 출력
+    public static void showBadge() {
+        EventBadge badge = new EventBadge();
+        outputView.badgeStart();
+        outputView.badge(badge.presentBadge(totalDiscount));
+    }
+
     public static void main(String[] args) {
         outputView.start();
         validateDate();
@@ -126,5 +134,6 @@ public class Application {
         giftPut(originalPrice, discount.totalDiscount(visitDay, menuAndNumber));
         showtotalDiscount(discountAndAmount);
         showPayAmount(discountAndAmount);
+        showBadge();
     }
 }
