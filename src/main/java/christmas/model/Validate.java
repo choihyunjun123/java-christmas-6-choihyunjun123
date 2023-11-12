@@ -46,6 +46,7 @@ public class Validate {
         menuExist(menuAndNumber);
         drinkOnly(menuAndNumber);
         totalOrderNum(menuAndNumber);
+        System.out.println(menuOrderNum(menuAndNumber));
         return menuAndNumber;
     }
 
@@ -106,12 +107,20 @@ public class Validate {
         }
     }
 
-    // 메뉴 존재 검증
+    //메뉴 주문 개수 검증
     public int menuCheck(HashMap<String, Integer> menuAndNumber, Enum<?>[] menuValues) {
         int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
         for (Enum<?> menu : menuValues) {
-            if (menuAndNumber.containsKey(String.valueOf(menu))) {
-                orderNum++;
+            orderNum = entryCheck(menu, menuAndNumber, orderNum);
+        }
+        return orderNum;
+    }
+
+    //주문 목록 반복 재생
+    public int entryCheck(Enum<?> menu, HashMap<String, Integer> menuAndNumber, int orderNum) {
+        for (Map.Entry<String, Integer> entry : menuAndNumber.entrySet()) {
+            if (menu.toString().equals(entry.getKey())) {
+                orderNum += entry.getValue();
             }
         }
         return orderNum;
