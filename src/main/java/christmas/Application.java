@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.model.Discount;
 import christmas.model.Payment;
 import christmas.model.Validate;
 import christmas.view.InputView;
@@ -11,14 +12,16 @@ import java.util.Map;
 
 public class Application {
 
+    private static int visitDay;
+    private static int originalPrice;
+
     private static final DecimalFormat won = new DecimalFormat("###,###");
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
     private static final Validate validate = new Validate();
     private static final Payment payment = new Payment();
+    private static final Discount discount = new Discount();
     private static HashMap<String, Integer> menuAndNumber = new HashMap<>();
-    private static int visitDay;
-    private static int originalPrice;
 
     public static void validateDate() {
         try {
@@ -49,15 +52,6 @@ public class Application {
         return won.format(payment.originalAmount(menuAndNumber));
     }
 
-    public static void gift() {
-        if (originalPrice >= 120000) {
-            outputView.gift("샴페인 1개");
-        }
-        if (originalPrice < 120000) {
-            outputView.gift("없음");
-        }
-    }
-
     public static void main(String[] args) {
         outputView.start();
         validateDate();
@@ -65,6 +59,6 @@ public class Application {
         outputView.preview(visitDay);
         showOrder(menuAndNumber);
         outputView.originalPrice(decimalPrice());
-        gift();
+        discount.gift(originalPrice);
     }
 }
