@@ -93,7 +93,11 @@ public class Validate {
     //존재 메뉴 검증
     public void menuExist(HashMap<String, Integer> menuAndNumber) {
         int orderNameNum = menuOrderNum(menuAndNumber);
-        if (menuAndNumber.size() != orderNameNum) {
+        int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
+        for (Integer order : menuAndNumber.values()) {
+            orderNum+=order;
+        }
+        if (orderNum != orderNameNum) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
