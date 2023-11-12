@@ -24,8 +24,23 @@ public class OutputView {
         System.out.println(originalPrice + "원");
     }
 
-    public void gift(String message) {
+    public void none() {
+        System.out.println("없음");
+    }
+
+    public void giftStart() {
         System.out.println("\n<증정 메뉴>");
-        System.out.println(message);
+    }
+
+    public void gift() {
+        System.out.println("샴페인 1개");
+    }
+
+    public void discountStart() {
+        System.out.println("\n<혜택 내역>");
+    }
+
+    public void discountList(String key, String value) {
+        System.out.println(key + ": -" + value + "원");
     }
 }

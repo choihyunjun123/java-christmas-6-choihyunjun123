@@ -12,9 +12,10 @@ public class Discount {
     private static final int CHRISTMAS_DISCOUNT_DUE_DATE = 25;
     private static final int CHRISTMAS_DISCOUNT_START_PRICE = 1000;
     private static final int CHRISTMAS_DISCOUNT_INCREMENT = 100;
+    private static final int WEEK_DISCOUNT_INCREMENT = 2023;
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
-    private static final int WEEK_DISCOUNT_INCREMENT = 2023;
+    private static final int CHRISTMAS_DAY = 25;
 
     private static final HashMap<String, Integer> discoutAndNumbers = new HashMap<>();
 
@@ -66,7 +67,7 @@ public class Discount {
     public int special(int visitDay) {
         int specialDiscount = INITIAL_VALUE_OF_DISCOUNT;
         LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
-        if (day.getDayOfWeek().toString().equals("SUNDAY") || visitDay == 25) {
+        if (day.getDayOfWeek().toString().equals("SUNDAY") || visitDay == CHRISTMAS_DAY) {
             specialDiscount = SPECIAL_DISCOUNT_AMOUNT;
         }
         if (specialDiscount != INITIAL_VALUE_OF_DISCOUNT) {
