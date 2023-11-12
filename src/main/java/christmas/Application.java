@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.model.Payment;
 import christmas.model.Validate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -12,8 +13,10 @@ public class Application {
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
     private static final Validate validate = new Validate();
+    private static final Payment payment = new Payment();
     private static HashMap<String, Integer> menuAndNumber = new HashMap<>();
     private static int visitDay;
+    private static int originalPrice;
 
     public static void validateDate() {
         try {
@@ -45,5 +48,6 @@ public class Application {
         validateMenu();
         outputView.preview(visitDay);
         showOrder(menuAndNumber);
+        System.out.println(payment.originalAmount(menuAndNumber));
     }
 }

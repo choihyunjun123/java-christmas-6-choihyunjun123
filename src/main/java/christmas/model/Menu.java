@@ -1,18 +1,21 @@
 package christmas.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Menu {
 
     public enum Appetizer {
         양송이스프(6000), 타파스(5500), 시저샐러드(8000);
 
-        final int price;
+        private final int price;
 
         Appetizer(int price) {
             this.price = price;
         }
 
-        public int getPrice() {
-            return price;
+        public int totalPrice(int number) {
+            return price * number;
         }
     }
 
@@ -25,8 +28,8 @@ public class Menu {
             this.price = price;
         }
 
-        public int getPrice() {
-            return price;
+        public int totalPrice(int number) {
+            return price * number;
         }
     }
 
@@ -39,8 +42,8 @@ public class Menu {
             this.price = price;
         }
 
-        public int getPrice() {
-            return price;
+        public int totalPrice(int number) {
+            return price * number;
         }
     }
 
@@ -53,8 +56,8 @@ public class Menu {
             this.price = price;
         }
 
-        public int getPrice() {
-            return price;
+        public int totalPrice(int number) {
+            return price * number;
         }
     }
 }
