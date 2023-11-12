@@ -67,7 +67,9 @@ public class Application {
     }
 
     public static void giftPut(int originalPrice, HashMap<String, Integer> discount) {
-        discountAndAmount = discount;
+        if (originalPrice >= 10000) {
+            discountAndAmount = discount;
+        }
         if (originalPrice >= GIFT_PRESENT_AMOUNT) {
             discountAndAmount.put("증정 이벤트", PRICE_OF_CHAMPAGNE);
         }
