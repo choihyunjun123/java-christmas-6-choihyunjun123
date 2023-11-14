@@ -13,6 +13,7 @@ public class Validate {
     private static final int MAXIMUM_VALUE_OF_ORDER_NUM = 20;
 
     private static final Order order = new Order();
+    private static final Payment payment = new Payment();
 
     //날짜 검증
     public int validateDate(String date) {
@@ -91,7 +92,7 @@ public class Validate {
 
     //존재 메뉴 검증
     public void menuExist(HashMap<String, Integer> menuAndNumber) {
-        int orderNameNum = menuOrderNum(menuAndNumber);
+        int orderNameNum = payment.menuOrderNum(menuAndNumber);
         int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
         for (Integer order : menuAndNumber.values()) {
             orderNum += order;
@@ -103,39 +104,11 @@ public class Validate {
 
     //음료만 주문 검증
     public void drinkOnly(HashMap<String, Integer> menuAndNumber) {
-        int drink = menuCheck(menuAndNumber, Menu.Drink.values());
-        int orderNameNum = menuOrderNum(menuAndNumber);
+        int drink = payment.menuCheck(menuAndNumber, Menu.Drink.values());
+        int orderNameNum = payment.menuOrderNum(menuAndNumber);
         if (orderNameNum == drink) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-    }
-
-    //메뉴 주문 개수 계산
-    public int menuCheck(HashMap<String, Integer> menuAndNumber, Enum<?>[] menuValues) {
-        int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
-        for (Enum<?> menu : menuValues) {
-            orderNum = entryCheck(menu, menuAndNumber, orderNum);
-        }
-        return orderNum;
-    }
-
-    //주문 목록 반복 재생
-    public int entryCheck(Enum<?> menu, HashMap<String, Integer> menuAndNumber, int orderNum) {
-        for (Map.Entry<String, Integer> entry : menuAndNumber.entrySet()) {
-            if (menu.toString().equals(entry.getKey())) {
-                orderNum += entry.getValue();
-            }
-        }
-        return orderNum;
-    }
-
-    //주문 메뉴 개수 구하기
-    public int menuOrderNum(HashMap<String, Integer> menuAndNumber) {
-        int appetizer = menuCheck(menuAndNumber, Menu.Appetizer.values());
-        int main = menuCheck(menuAndNumber, Menu.Main.values());
-        int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
-        int drink = menuCheck(menuAndNumber, Menu.Drink.values());
-        return appetizer + main + dessert + drink;
     }
 
     //전체 주문 개수 20개 이상 검증

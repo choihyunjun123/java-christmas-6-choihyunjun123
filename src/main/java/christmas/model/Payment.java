@@ -59,4 +59,32 @@ public class Payment {
         }
         return totalDrinkAmount;
     }
+
+    //메뉴 주문 개수 계산
+    public int menuCheck(HashMap<String, Integer> menuAndNumber, Enum<?>[] menuValues) {
+        int orderNum = INITIAL_VALUE_OF_AMOUNT;
+        for (Enum<?> menu : menuValues) {
+            orderNum = entryCheck(menu, menuAndNumber, orderNum);
+        }
+        return orderNum;
+    }
+
+    //주문 목록 반복 재생
+    public int entryCheck(Enum<?> menu, HashMap<String, Integer> menuAndNumber, int orderNum) {
+        for (Map.Entry<String, Integer> entry : menuAndNumber.entrySet()) {
+            if (menu.toString().equals(entry.getKey())) {
+                orderNum += entry.getValue();
+            }
+        }
+        return orderNum;
+    }
+
+    //주문 메뉴 개수 구하기
+    public int menuOrderNum(HashMap<String, Integer> menuAndNumber) {
+        int appetizer = menuCheck(menuAndNumber, Menu.Appetizer.values());
+        int main = menuCheck(menuAndNumber, Menu.Main.values());
+        int dessert = menuCheck(menuAndNumber, Menu.Dessert.values());
+        int drink = menuCheck(menuAndNumber, Menu.Drink.values());
+        return appetizer + main + dessert + drink;
+    }
 }
