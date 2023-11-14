@@ -3,6 +3,8 @@ package christmas.model;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,11 +37,12 @@ class DiscountTest {
     }
 
     @DisplayName("크리스마스 할인 내역 확인")
-    @Test
-    void christmas() {
+    @ParameterizedTest
+    @CsvSource(value = {"10:1900", "20:2900", "26:0"}, delimiter = ':')
+    void christmas(int visitDay, int expect) {
         Discount discount = new Discount();
-        int result = discount.christmas(20);
-        assertThat(result).isEqualTo(2900);
+        int result = discount.christmas(visitDay);
+        assertThat(result).isEqualTo(expect);
     }
 
     @DisplayName("평일 할인 내역 확인")
@@ -59,19 +62,21 @@ class DiscountTest {
     }
 
     @DisplayName("특별 할인 내역 확인")
-    @Test
-    void special() {
+    @ParameterizedTest
+    @CsvSource(value = {"17:1000", "18:0"}, delimiter = ':')
+    void special(int visitDay, int expect) {
         Discount discount = new Discount();
-        int result = discount.special(17);
-        assertThat(result).isEqualTo(1000);
+        int result = discount.special(visitDay);
+        assertThat(result).isEqualTo(expect);
     }
 
     @DisplayName("증정 유무 확인")
-    @Test
-    void giftPut() {
+    @ParameterizedTest
+    @CsvSource(value = {"130000:true", "100000:false"}, delimiter = ':')
+    void giftPut(int originalPrice, boolean expect) {
         Discount discount = new Discount();
-        boolean result = discount.giftPut(130000);
-        assertThat(result).isEqualTo(true);
+        boolean result = discount.giftPut(originalPrice);
+        assertThat(result).isEqualTo(expect);
     }
 
     @DisplayName("총 할인 금액 내역 확인")
@@ -82,19 +87,12 @@ class DiscountTest {
         assertThat(result).isEqualTo(32646);
     }
 
-    @DisplayName("증정품 제공시 최종 금액 계산")
-    @Test
-    void fianlPayAmountGift() {
+    @DisplayName("증정품 유무에 따른 최종 금액 계산")
+    @ParameterizedTest
+    @CsvSource(value = {"130000:30000:125000", "100000:30000:70000"}, delimiter = ':')
+    void fianlPayAmountGift(int originalPrice, int totalDiscount, int expectPrice) {
         Discount discount = new Discount();
-        int result = discount.fianlPayAmount(130000, 30000);
-        assertThat(result).isEqualTo(125000);
-    }
-
-    @DisplayName("증정품 미제공시 최종 금액 계산")
-    @Test
-    void fianlPayAmountNoGift() {
-        Discount discount = new Discount();
-        int result = discount.fianlPayAmount(100000, 30000);
-        assertThat(result).isEqualTo(70000);
+        int result = discount.fianlPayAmount(originalPrice, totalDiscount);
+        assertThat(result).isEqualTo(expectPrice);
     }
 }

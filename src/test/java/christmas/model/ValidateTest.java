@@ -2,6 +2,8 @@ package christmas.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +17,18 @@ class ValidateTest {
     Validate validate = new Validate();
 
     @DisplayName("날짜 예외 검증.")
-    @Test
-    void validateDate() {
-        int result = validate.validateDate("1");
-        assertThat(result).isEqualTo(1);
+    @ParameterizedTest
+    @CsvSource(value = {"1:1", "15:15"}, delimiter = ':')
+    void validateDate(String date, int expect) {
+        int result = validate.validateDate(date);
+        assertThat(result).isEqualTo(expect);
     }
 
     @DisplayName("날짜 입력에 문자 입력하면 예외가 발생한다.")
-    @Test
-    void number() {
-        assertThatThrownBy(() -> validate.number("a"))
+    @ParameterizedTest
+    @CsvSource(value = {"a", "-", "/", "ㅁ"})
+    void number(String date) {
+        assertThatThrownBy(() -> validate.number(date))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
