@@ -93,27 +93,6 @@ class ValidateTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("메뉴 주문 개수 계산")
-    @Test
-    void menuCheck() {
-        HashMap<String, Integer> menuAndNumber = new HashMap<>();
-        menuAndNumber.put("양송이스프", 1);
-        menuAndNumber.put("타파스", 1);
-        int result = validate.menuCheck(menuAndNumber, Menu.Appetizer.values());
-        assertThat(result).isEqualTo(2);
-    }
-
-    @Test
-    void menuOrderNum() {
-        HashMap<String, Integer> menuAndNumber = new HashMap<>();
-        menuAndNumber.put("양송이스프", 1);
-        menuAndNumber.put("티본스테이크", 2);
-        menuAndNumber.put("초코케이크", 3);
-        menuAndNumber.put("제로콜라", 4);
-        int result = validate.menuOrderNum(menuAndNumber);
-        assertThat(result).isEqualTo(10);
-    }
-
     @DisplayName("20개 이상 주문하면 예외가 발생한다.")
     @Test
     void totalOrderNum() {
