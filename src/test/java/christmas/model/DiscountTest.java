@@ -66,11 +66,35 @@ class DiscountTest {
         assertThat(result).isEqualTo(1000);
     }
 
+    @DisplayName("증정 유무 확인")
+    @Test
+    void giftPut() {
+        Discount discount = new Discount();
+        boolean result = discount.giftPut(130000);
+        assertThat(result).isEqualTo(true);
+    }
+
     @DisplayName("총 할인 금액 내역 확인")
     @Test
     void totalDiscountAmount() {
         Discount discount = new Discount();
         int result = discount.totalDiscountAmount(discountExpect);
         assertThat(result).isEqualTo(32646);
+    }
+
+    @DisplayName("증정품 제공시 최종 금액 계산")
+    @Test
+    void fianlPayAmountGift() {
+        Discount discount = new Discount();
+        int result = discount.fianlPayAmount(130000, 30000);
+        assertThat(result).isEqualTo(125000);
+    }
+
+    @DisplayName("증정품 미제공시 최종 금액 계산")
+    @Test
+    void fianlPayAmountNoGift() {
+        Discount discount = new Discount();
+        int result = discount.fianlPayAmount(100000, 30000);
+        assertThat(result).isEqualTo(70000);
     }
 }
