@@ -3,6 +3,7 @@ package christmas.model;
 import java.util.*;
 
 public class Validate {
+
     private static final String INPUT_CONTENT_REGEX = "^[0-9]+$";
     private static final int MONTH_START_DATE = 1;
     private static final int MONTH_END_DATE = 31;
