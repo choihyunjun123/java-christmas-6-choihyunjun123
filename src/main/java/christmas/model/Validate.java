@@ -16,34 +16,31 @@ public class Validate {
     private static final Order order = new Order();
     private static final Payment payment = new Payment();
 
-    //날짜 검증
     public int validateDate(String date) {
-        number(date);
-        range(date);
+        validateNumber(date);
+        validateRange(date);
         return Integer.parseInt(date);
     }
 
-    //날짜 문자 검증
-    public void number(String numbers) {
+    public void validateNumber(String numbers) {
         if (!numbers.matches(INPUT_CONTENT_REGEX)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
-    //날짜 범위 검증
-    public void range(String numbers) {
-        if (Integer.parseInt(numbers) < MONTH_START_DATE || Integer.parseInt(numbers) > MONTH_END_DATE) {
+    public void validateRange(String numbers) {
+        int date = Integer.parseInt(numbers);
+        if (date < MONTH_START_DATE || date > MONTH_END_DATE) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
-    //주문 메뉴 검증
     public HashMap<String, Integer> validateOrder(String orderMenu) {
         List<List> splitOrder = order.splitOrder(orderMenu);
-        form(splitOrder);
+        orderForm(splitOrder);
         orderNumberWord(splitOrder);
         orderNumberRange(splitOrder);
-        duplication(splitOrder);
+        orderDuplication(splitOrder);
         HashMap<String, Integer> menuAndNumber = order.putOrder(splitOrder);
         menuExist(menuAndNumber);
         drinkOnly(menuAndNumber);
@@ -51,38 +48,35 @@ public class Validate {
         return menuAndNumber;
     }
 
-    //주문 입력 형식 검증
-    public void form(List<List> splitOrder) {
-        for (List l : splitOrder) {
+    public void orderForm(List<List> splitOrder) {
+        for (List<String> l : splitOrder) {
             if (l.size() != MENU_NUMBER_LIST_SIZE) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             }
         }
     }
 
-    //주문 메뉴 개수 문자 검증
     public void orderNumberWord(List<List> splitOrder) {
-        for (List l : splitOrder) {
-            if (!l.get(MENU_NUMBER_POSITION).toString().matches(INPUT_CONTENT_REGEX)) {
+        for (List<String> l : splitOrder) {
+            if (!l.get(MENU_NUMBER_POSITION).matches(INPUT_CONTENT_REGEX)) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             }
         }
     }
 
-    //주문 메뉴 개수 최소 숫자 검증
     public void orderNumberRange(List<List> splitOrder) {
-        for (List l : splitOrder) {
-            if (Integer.parseInt(l.get(MENU_NUMBER_POSITION).toString()) < 1) {
+        for (List<String> l : splitOrder) {
+            int orderNumber = Integer.parseInt(l.get(MENU_NUMBER_POSITION));
+            if (orderNumber < 1) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             }
         }
     }
 
-    //주문 메뉴 중복 검증
-    public void duplication(List<List> splitOrder) {
-        List<Object> allMenu = new ArrayList<>();
-        Set<Object> organizedMenu = new HashSet<>();
-        for (List l : splitOrder) {
+    public void orderDuplication(List<List> splitOrder) {
+        List<String> allMenu = new ArrayList<>();
+        Set<String> organizedMenu = new HashSet<>();
+        for (List<String> l : splitOrder) {
             allMenu.add(l.get(MENU_NAME_POSITION));
             organizedMenu.add(l.get(MENU_NAME_POSITION));
         }
@@ -91,7 +85,6 @@ public class Validate {
         }
     }
 
-    //존재 메뉴 검증
     public void menuExist(HashMap<String, Integer> menuAndNumber) {
         int orderNameNum = payment.menuOrderNum(menuAndNumber);
         int orderNum = INITIAL_VALUE_OF_ORDER_NUM;
@@ -103,7 +96,6 @@ public class Validate {
         }
     }
 
-    //음료만 주문 검증
     public void drinkOnly(HashMap<String, Integer> menuAndNumber) {
         int drink = payment.menuCheck(menuAndNumber, Menu.Drink.values());
         int orderNameNum = payment.menuOrderNum(menuAndNumber);
@@ -112,7 +104,6 @@ public class Validate {
         }
     }
 
-    //전체 주문 개수 20개 이상 검증
     public void totalOrderNum(HashMap<String, Integer> menuAndNumber) {
         int totalNum = INITIAL_VALUE_OF_ORDER_NUM;
         for (int total : menuAndNumber.values()) {

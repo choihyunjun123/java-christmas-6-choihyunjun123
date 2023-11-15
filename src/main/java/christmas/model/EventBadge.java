@@ -18,13 +18,13 @@ public class EventBadge {
 
     public String presentBadge(int totalDiscount) {
         if (totalDiscount >= Badges.산타.getPrice()) {
-            return "산타";
+            return Badges.산타.name();
         }
         if (totalDiscount >= Badges.트리.getPrice()) {
-            return "트리";
+            return Badges.트리.name();
         }
         if (totalDiscount >= Badges.별.getPrice()) {
-            return "별";
+            return Badges.별.name();
         }
         return "없음";
     }

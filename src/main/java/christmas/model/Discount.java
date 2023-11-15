@@ -1,5 +1,6 @@
 package christmas.model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +18,14 @@ public class Discount {
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
     private static final int CHRISTMAS_DAY = 25;
+    private static final String CHRISTMAS_DISCOUNT = "크리스마스 디데이 할인";
+    private static final String WEEKDAY_DISCOUNT = "평일 할인";
+    private static final String WEEKEND_DISCOUNT = "주말 할인";
+    private static final String SPECIAL_DISCOUNT = "특별 할인";
+    private static final String GIFT_PRESENT = "증정 이벤트";
 
-    private static final HashMap<String, Integer> discoutAndNumbers = new HashMap<>();
+
+    private static final HashMap<String, Integer> discountAndNumbers = new HashMap<>();
 
     //전체 할인 목록
     public HashMap<String, Integer> totalDiscount(int visitDay, int originalPrice, HashMap<String, Integer> menuAndNumber) {
@@ -27,7 +34,7 @@ public class Discount {
         weekend(visitDay, menuAndNumber);
         special(visitDay);
         giftPut(originalPrice);
-        return discoutAndNumbers;
+        return discountAndNumbers;
     }
 
     //크리스마스 할인 계산
@@ -37,7 +44,7 @@ public class Discount {
             christmasDiscount = CHRISTMAS_DISCOUNT_START_PRICE + CHRISTMAS_DISCOUNT_INCREMENT * (visitDay - 1);
         }
         if (christmasDiscount != INITIAL_VALUE_OF_DISCOUNT) {
-            discoutAndNumbers.put("크리스마스 디데이 할인", christmasDiscount);
+            discountAndNumbers.put(CHRISTMAS_DISCOUNT, christmasDiscount);
         }
         return christmasDiscount;
     }
@@ -47,11 +54,12 @@ public class Discount {
         int weekdayDiscount = INITIAL_VALUE_OF_DISCOUNT;
         int dessertNum = new Payment().menuCheck(menuAndNumber, Menu.Dessert.values());
         LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
-        if (!day.getDayOfWeek().toString().equals("FRIDAY") || !day.getDayOfWeek().toString().equals("SATURDAY")) {
+        DayOfWeek dayOfWeek = day.getDayOfWeek();
+        if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
             weekdayDiscount = WEEK_DISCOUNT_INCREMENT * dessertNum;
         }
         if (weekdayDiscount != INITIAL_VALUE_OF_DISCOUNT) {
-            discoutAndNumbers.put("평일 할인", weekdayDiscount);
+            discountAndNumbers.put(WEEKDAY_DISCOUNT, weekdayDiscount);
         }
         return weekdayDiscount;
     }
@@ -61,11 +69,12 @@ public class Discount {
         int weekendDiscount = INITIAL_VALUE_OF_DISCOUNT;
         int mainNum = new Payment().menuCheck(menuAndNumber, Menu.Main.values());
         LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
-        if (day.getDayOfWeek().toString().equals("FRIDAY") || day.getDayOfWeek().toString().equals("SATURDAY")) {
+        DayOfWeek dayOfWeek = day.getDayOfWeek();
+        if (dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY) {
             weekendDiscount = WEEK_DISCOUNT_INCREMENT * mainNum;
         }
         if (weekendDiscount != INITIAL_VALUE_OF_DISCOUNT) {
-            discoutAndNumbers.put("주말 할인", weekendDiscount);
+            discountAndNumbers.put(WEEKEND_DISCOUNT, weekendDiscount);
         }
         return weekendDiscount;
     }
@@ -74,11 +83,12 @@ public class Discount {
     public int special(int visitDay) {
         int specialDiscount = INITIAL_VALUE_OF_DISCOUNT;
         LocalDate day = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay);
-        if (day.getDayOfWeek().toString().equals("SUNDAY") || visitDay == CHRISTMAS_DAY) {
+        DayOfWeek dayOfWeek = day.getDayOfWeek();
+        if (dayOfWeek == DayOfWeek.SUNDAY || visitDay == CHRISTMAS_DAY) {
             specialDiscount = SPECIAL_DISCOUNT_AMOUNT;
         }
         if (specialDiscount != INITIAL_VALUE_OF_DISCOUNT) {
-            discoutAndNumbers.put("특별 할인", SPECIAL_DISCOUNT_AMOUNT);
+            discountAndNumbers.put(SPECIAL_DISCOUNT, SPECIAL_DISCOUNT_AMOUNT);
         }
         return specialDiscount;
     }
@@ -86,7 +96,7 @@ public class Discount {
     //증정 유무 계산
     public boolean giftPut(int originalPrice) {
         if (originalPrice >= GIFT_PRESENT_AMOUNT) {
-            discoutAndNumbers.put("증정 이벤트", PRICE_OF_CHAMPAGNE);
+            discountAndNumbers.put(GIFT_PRESENT, PRICE_OF_CHAMPAGNE);
             return true;
         }
         return false;

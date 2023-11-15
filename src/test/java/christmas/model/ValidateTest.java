@@ -28,14 +28,14 @@ class ValidateTest {
     @ParameterizedTest
     @CsvSource(value = {"a", "-", "/", "ㅁ"})
     void number(String date) {
-        assertThatThrownBy(() -> validate.number(date))
+        assertThatThrownBy(() -> validate.validateNumber(date))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("날짜 입력에 달력에 없는 숫자 입력하면 예외가 발생한다.")
     @Test
     void range() {
-        assertThatThrownBy(() -> validate.range("45"))
+        assertThatThrownBy(() -> validate.validateRange("45"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -54,7 +54,7 @@ class ValidateTest {
     @DisplayName("주문 입력 형식 오류시 예외가 발생한다.")
     @Test
     void form() {
-        assertThatThrownBy(() -> validate.form(List.of(List.of("양송이스프1"))))
+        assertThatThrownBy(() -> validate.orderForm(List.of(List.of("양송이스프1"))))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -75,7 +75,7 @@ class ValidateTest {
     @DisplayName("중복된 메뉴를 주문하면 예외가 발생한다.")
     @Test
     void duplication() {
-        assertThatThrownBy(() -> validate.duplication(List.of(List.of("양송이스프", "1"), List.of("양송이스프", "2"))))
+        assertThatThrownBy(() -> validate.orderDuplication(List.of(List.of("양송이스프", "1"), List.of("양송이스프", "2"))))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
